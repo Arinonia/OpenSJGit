@@ -7,7 +7,7 @@
 ## Description
 
 This project is a Git server implemented in Java, designed as a learning exercise to understand and utilize Spring Boot.
-
+This is also my first project with springboot and jgit
 ## Installation
 
 ```bash
