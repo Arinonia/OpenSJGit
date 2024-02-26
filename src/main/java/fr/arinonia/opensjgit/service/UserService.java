@@ -27,6 +27,12 @@ public class UserService {
             return response;
         }
 
+        if (password.length() < 7) {
+            response.setSuccess(false);
+            response.setErrorMessage("Your password size must be higher than 7");
+            return response;
+        }
+
         if (this.userRepository.findByUsername(username) != null) {
             response.setSuccess(false);
             response.setErrorMessage("User already exists with the same name");
