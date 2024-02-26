@@ -1,7 +1,7 @@
 package fr.arinonia.opensjgit.controller;
 
 import fr.arinonia.opensjgit.dto.UserRegistrationDto;
-import fr.arinonia.opensjgit.service.RegistrationResponse;
+import fr.arinonia.opensjgit.service.responses.RegistrationResponse;
 import fr.arinonia.opensjgit.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

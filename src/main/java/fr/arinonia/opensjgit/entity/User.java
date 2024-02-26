@@ -16,12 +16,13 @@ public class User {
     private String creation_date;//TODO maybe just use Date
     private boolean using_2fa = false;//TODO 2fa will be not implemented yet
     private String profile_picture = "";
+    private boolean confirmed_mail = false;
 
     //Empty constructor for all the reflection process
     public User() {}
 
     public User(final Long id, final String username, final String email, final String password,
-                final String creation_date, final boolean using_2fa, final String profile_picture) {
+                final String creation_date, final boolean using_2fa, final String profile_picture, final boolean confirmed_mail) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -29,6 +30,7 @@ public class User {
         this.creation_date = creation_date;
         this.using_2fa = using_2fa;
         this.profile_picture = profile_picture;
+        this.confirmed_mail = confirmed_mail;
     }
 
     public Long getId() {
@@ -85,5 +87,13 @@ public class User {
 
     public void setProfile_picture(final String profile_picture) {
         this.profile_picture = profile_picture;
+    }
+
+    public boolean isConfirmed_mail() {
+        return this.confirmed_mail;
+    }
+
+    public void setConfirmed_mail(final boolean confirmed_mail) {
+        this.confirmed_mail = confirmed_mail;
     }
 }

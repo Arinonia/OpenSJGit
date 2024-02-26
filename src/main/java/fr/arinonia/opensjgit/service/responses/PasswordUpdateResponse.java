@@ -1,16 +1,11 @@
-package fr.arinonia.opensjgit.service;
+package fr.arinonia.opensjgit.service.responses;
 
-public class RegistrationResponse {
+public class PasswordUpdateResponse {
 
     private boolean success;
     private String errorMessage;
 
-    public RegistrationResponse() {}
-
-    public RegistrationResponse(final boolean success, final String errorMessage) {
-        this.success = success;
-        this.errorMessage = errorMessage;
-    }
+    public PasswordUpdateResponse() {}
 
     public boolean isSuccess() {
         return this.success;
