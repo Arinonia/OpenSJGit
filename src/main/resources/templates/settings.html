@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Profile</title>
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-dark text-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- TODO NAVBAR CONTENT -->
+</nav>
+
+<div class="container mt-5">
+    <h2>Profile Settings</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="profile-info">
+                <h3 th:text="${username}">Username</h3>
+                <p>Email: <span th:text="${email}">user@example.com</span></p>
+            </div>
+            <div class="col-md-4">
+                <div class="profile-pic-container mb-3">
+                    <img th:src="${profilePicPath}" alt="Profile Pic" class="profile-pic" onerror="this.src='/images/default-pic.png'">
+                </div>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label for="profilePicture">Profile Picture</label>
+                    <input type="file" class="form-control-file" id="profilePicture">
+                </div>
+
+                <div class="creation-date">
+                    <strong>Creation Date:</strong> <span th:text="${creationDate}">2024-02-26</span>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" class="form-control" id="newPassword" placeholder="New Password">
+                    <label for="passwordConfirm" class="sr-only">Confirm Password</label>
+                    <input type="password" id="passwordConfirm" class="form-control mb-3" name="passwordConfirm" placeholder="Confirm Password">
+                </div>
+
+                <div class="form-group">
+                    <p>If you haven't confirmed your email yet, <a href="#">click here</a> to send a confirmation email.</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
