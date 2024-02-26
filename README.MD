@@ -8,6 +8,14 @@
 
 This project is a Git server implemented in Java, designed as a learning exercise to understand and utilize Spring Boot.
 This is also my first project with springboot and jgit
+
+## What is working now
+
+For now only the login / register part is working
+
+## What is comming next?
+
+The next part will be the most interesting, repositories creation and management
 ## Installation
 
 ```bash
