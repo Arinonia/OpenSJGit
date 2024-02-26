@@ -1,19 +1,34 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="icon" type="image/png" href="/images/logo.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <img src="/images/logo.png" alt="Logo" class="navbar-logo">
     <a class="navbar-brand" href="/home">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle plus-button" href="#" id="navbarDropdownCreate" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    +
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownCreate">
+                    <a class="dropdown-item" href="/create-repository">New Repository</a>
+                    <a class="dropdown-item" href="/new-organization">New Organization</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="/images/default-pic.png" alt="Profile Pic" style="width: 30px; height: 30px; border-radius: 50%;"> Username
+                    <img src="/images/default-pic.png" alt="Profile Pic" style="width: 30px; height: 30px; border-radius: 50%;"> <span th:text="${username}">Username</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/profile-settings">Profile Settings</a>
