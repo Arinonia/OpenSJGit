@@ -2,7 +2,7 @@ package fr.arinonia.opensjgit.controller;
 
 import fr.arinonia.opensjgit.entity.User;
 import fr.arinonia.opensjgit.service.UserService;
-import fr.arinonia.opensjgit.service.responses.PasswordUpdateResponse;
+import fr.arinonia.opensjgit.service.responses.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 public class SettingsController {
@@ -27,7 +28,7 @@ public class SettingsController {
     public String getSettingsView(final Model model) {
         final User currentUser = userService.findByUsername(getCurrentUsername()).orElseThrow(() -> new IllegalArgumentException("User not found"));
         final String profilePicPath = (currentUser.getProfile_picture() != null || !currentUser.getProfile_picture().equalsIgnoreCase("")) ? currentUser.getProfile_picture() : "/images/default-pic.png";
-
+        System.out.println(profilePicPath);
         model.addAttribute("creationDate", currentUser.getCreation_date());
         model.addAttribute("profilePicPath", profilePicPath);
         model.addAttribute("username", currentUser.getUsername());
@@ -46,14 +47,18 @@ public class SettingsController {
         boolean profileUpdated = false;
 
         if (profilePicture != null && !profilePicture.isEmpty()) {
-            System.out.println("Updating profile picture: " + profilePicture.getOriginalFilename());
-            profileUpdated = true;
-            //add the user service later
+            final Response response = this.userService.updateProfilePicture(getCurrentUsername(), profilePicture);
+            if (response.isSuccess()) {
+                profileUpdated = true;
+            } else {
+                redirectAttributes.addFlashAttribute("error", response.getErrorMessage());
+                return "redirect:/settings";
+            }
         }
 
 
         if (newPassword != null && !newPassword.isEmpty() && confirmNewPassword != null && !confirmNewPassword.isEmpty()) {
-            final PasswordUpdateResponse response = this.userService.updatePassword(getCurrentUsername(), newPassword, confirmNewPassword);
+            final Response response = this.userService.updatePassword(getCurrentUsername(), currentPassword, newPassword, confirmNewPassword);
 
             if (response.isSuccess()) {
                 profileUpdated = true;
@@ -70,7 +75,8 @@ public class SettingsController {
         return "redirect:/settings";
     }
 
-        private String getCurrentUsername() {
+
+    private String getCurrentUsername() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

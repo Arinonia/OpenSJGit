@@ -1,11 +1,11 @@
 package fr.arinonia.opensjgit.service.responses;
 
-public class PasswordUpdateResponse {
+public abstract class AbstractResponse {
 
     private boolean success;
     private String errorMessage;
 
-    public PasswordUpdateResponse() {}
+    public AbstractResponse() {}
 
     public boolean isSuccess() {
         return this.success;

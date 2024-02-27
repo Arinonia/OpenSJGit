@@ -28,7 +28,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="/images/default-pic.png" alt="Profile Pic" style="width: 30px; height: 30px; border-radius: 50%;"> <span th:text="${username}">Username</span>
+                    <img th:if="${profilePicPath}" th:src="@{/uploads/{profilePicPath}(profilePicPath=${profilePicPath})}" alt="Profile Picture" onerror="this.src='/images/default-pic.png'" class="profile-pic"/>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/profile">Profile</a>
