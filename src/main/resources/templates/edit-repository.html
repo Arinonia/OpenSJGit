@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Edit Repository</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body class="bg-dark text-light">
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <img src="/images/logo.png" alt="Logo" class="navbar-logo">
     <a class="navbar-brand" href="/home">Home</a>
@@ -37,46 +36,27 @@
         </ul>
     </div>
 </nav>
-
-<div class="container mt-5 text-light">
-    <h2>User Dashboard</h2>
-    <table class="table table-dark table-striped">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Creation Date</th>
-            <th>Using 2FA</th>
-            <th>Profile Picture</th>
-            <th>Confirmed Email</th>
-            <th>Rank</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.creation_date}"></td>
-            <td th:text="${user.using_2fa}"></td>
-            <td>
-                <img th:if="${user.profile_picture}" th:src="@{/uploads/{profilePic}(profilePic=${user.profile_picture})}" alt="Profile Picture" height="50" onerror="this.src='/images/default-pic.png'"/>
-            </td>
-            <td th:text="${user.confirmed_mail} ? 'Yes' : 'No'"></td>
-            <td th:text="${user.rank}"></td>
-            <td>
-                <a th:href="@{/edit-user/{id}(id=${user.id})}" class="btn btn-secondary btn-sm">Edit</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <h2 class="text-light">Edit Repository</h2>
+    <form th:action="@{/repositories/edit-repository/{id}(id=${repository.id})}" th:object="${repository}" method="post" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" th:field="*{description}" required></textarea>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="isPrivate" th:field="*{private}">
+            <label class="form-check-label" for="isPrivate">Private</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Repository</button>
+    </form>
+    <form th:action="@{/repositories/delete-repository/{id}(id=${repository.id})}" method="post">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this repository?');">Delete Repository</button>
+    </form>
 </div>
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

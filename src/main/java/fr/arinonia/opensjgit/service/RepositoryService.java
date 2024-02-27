@@ -65,6 +65,24 @@ public class RepositoryService {
     }
 
     public Page<Repository> findAllByUser(final User user, final Pageable pageable) {
-        return repositoryRepository.findAllByOwner(user, pageable);
+        return this.repositoryRepository.findAllByOwner(user, pageable);
+    }
+
+    public List<Repository> findAllByOwner(final User owner) {
+        return this.repositoryRepository.findAllByOwner(owner);
+    }
+
+
+    public Optional<Repository> findById(final Long id) {
+        return this.repositoryRepository.findById(id);
+    }
+
+    public void save(final Repository repository) {
+        this.repositoryRepository.save(repository);
+    }
+
+    public void delete(final Long id) {
+        //TODO remove the repo folder
+        this.repositoryRepository.deleteById(id);
     }
 }

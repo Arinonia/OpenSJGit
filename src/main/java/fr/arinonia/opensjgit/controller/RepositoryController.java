@@ -54,12 +54,33 @@ public class RepositoryController implements ILoggedController {
         return "create-repository";
     }
 
+    @GetMapping("/edit-repository/{id}")
+    public String showEditForm(final @PathVariable("id") Long id, final Model model) {
+        final Repository repository = repositoryService.findById(id).orElseThrow();
+        model.addAttribute("profilePicPath", this.getProfilePicturePath(this.userService));
+        model.addAttribute("repository", repository);
+        return "edit-repository";
+    }
+
     @PostMapping("/create-repository")
     public String createRepository(final @ModelAttribute("repository") Repository repository, final Principal principal) {
         final User user = this.getCurrentUser(this.userService);
         repository.setOwner(user);
         repository.setCreationDate(LocalDateTime.now());
         this.repositoryService.createRepository(repository);
+        return "redirect:/repositories/repositories";
+    }
+
+    @PostMapping("/edit-repository/{id}")
+    public String updateRepository(final @PathVariable("id") Long id, final @ModelAttribute("repository") Repository repository) {
+        repository.setId(id);
+        this.repositoryService.save(repository);
+        return "redirect:/repositories";
+    }
+
+    @PostMapping("/delete-repository/{id}")
+    public String deleteRepository(@PathVariable("id") Long id) {
+        this.repositoryService.delete(id);
         return "redirect:/repositories/repositories";
     }
 }
