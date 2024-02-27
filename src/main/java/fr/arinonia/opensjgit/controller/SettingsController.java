@@ -25,11 +25,9 @@ public class SettingsController implements ILoggedController {
 
     @GetMapping("/settings")
     public String getSettingsView(final Model model) {
-        final User currentUser = userService.findByUsername(getCurrentUsername()).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        final String profilePicPath = (currentUser.getProfile_picture() != null || !currentUser.getProfile_picture().equalsIgnoreCase("")) ? currentUser.getProfile_picture() : "/images/default-pic.png";
-        System.out.println(profilePicPath);
+        final User currentUser = this.getCurrentUser(this.userService);
         model.addAttribute("creationDate", currentUser.getCreation_date());
-        model.addAttribute("profilePicPath", profilePicPath);
+        model.addAttribute("profilePicPath", this.getProfilePicturePath(this.userService));
         model.addAttribute("username", currentUser.getUsername());
         model.addAttribute("email", currentUser.getEmail());
         model.addAttribute("mail_confirmed", currentUser.isConfirmed_mail());

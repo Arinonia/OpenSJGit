@@ -3,7 +3,6 @@ package fr.arinonia.opensjgit.controller;
 import fr.arinonia.opensjgit.entity.User;
 import fr.arinonia.opensjgit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,11 +24,9 @@ public class DashboardController implements ILoggedController {
 
     @GetMapping("/dashboard")
     public String dashboard(final Model model) {
-        final User currentUser = userService.findByUsername(getCurrentUsername()).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        final String profilePicPath = (currentUser.getProfile_picture() != null || !currentUser.getProfile_picture().equalsIgnoreCase("")) ? currentUser.getProfile_picture() : "/images/default-pic.png";
-        List<User> users = userService.findAllUsers();
+        final List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
-        model.addAttribute("profilePicPath", profilePicPath);
+        model.addAttribute("profilePicPath", this.getProfilePicturePath(this.userService));
         return "dashboard";
     }
 

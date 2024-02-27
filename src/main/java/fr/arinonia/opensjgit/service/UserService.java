@@ -3,6 +3,7 @@ package fr.arinonia.opensjgit.service;
 import fr.arinonia.opensjgit.entity.User;
 import fr.arinonia.opensjgit.repository.UserRepository;
 import fr.arinonia.opensjgit.service.responses.Response;
+import fr.arinonia.opensjgit.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -126,16 +127,18 @@ public class UserService {
     }
 
     public String saveProfilePicture(final String username, final MultipartFile file) throws IOException {
-        final File uploadDir = new File("./var/app/uploads/profile-pictures/");
+        final File uploadDir = new File(Constants.PROFILE_PICTURE_PATH);
         if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
+            if (!uploadDir.mkdirs()) {
+                System.err.println("cannot create " + Constants.PROFILE_PICTURE_PATH);//TODO add better log trace
+            }
         }
 
         final User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         final String currentPicturePath = user.getProfile_picture();
         if (currentPicturePath != null && !currentPicturePath.isEmpty() && !currentPicturePath.equals("default-pic.png")) {
-            final Path path = Paths.get("./var/app/uploads/profile-pictures/" + currentPicturePath);
+            final Path path = Paths.get(Constants.PROFILE_PICTURE_PATH + currentPicturePath);
             try {
                 Files.deleteIfExists(path);
             } catch (final IOException e) {
@@ -143,11 +146,12 @@ public class UserService {
             }
         }
 
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        final String filename = StringUtils.cleanPath(file.getOriginalFilename());
         if(filename.contains("..")) {
             throw new IOException("Filename contains invalid path sequence " + filename);
         }
-        String newFileName = UUID.randomUUID() + "-" + filename;
+        final String newFileName = UUID.randomUUID() + "-" + filename;
+        //That's kinda dangerous to replace I should find another way
         Files.copy(file.getInputStream(), new File(uploadDir, newFileName).toPath(), StandardCopyOption.REPLACE_EXISTING);
 
         return newFileName;
@@ -161,11 +165,11 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(final Long id) {
         return this.userRepository.findById(id);
     }
 
-    public void save(User user) {
+    public void save(final User user) {
         this.userRepository.save(user);
     }
 }

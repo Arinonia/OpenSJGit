@@ -16,7 +16,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 
 @Controller
-@RequestMapping("/repositories") // Optional: Organize repository related paths under /repositories
+@RequestMapping("/repositories")
 public class RepositoryController implements ILoggedController {
 
     private final UserService userService;
@@ -32,25 +32,23 @@ public class RepositoryController implements ILoggedController {
     @GetMapping("/repositories")
     public String listUserRepositories(final Model model, final @RequestParam(defaultValue = "0") int page) {
         final Pageable pageable = PageRequest.of(page, 20);
-        final User currentUser = userService.findByUsername(getCurrentUsername()).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        final User currentUser = this.getCurrentUser(this.userService);
         final Page<Repository> repositoryPage = repositoryService.findAllByUser(currentUser, pageable);
-        final String profilePicPath = (currentUser.getProfile_picture() != null || !currentUser.getProfile_picture().equalsIgnoreCase("")) ? currentUser.getProfile_picture() : "/images/default-pic.png";
 
         model.addAttribute("repositories", repositoryPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", repositoryPage.getTotalPages());
         model.addAttribute("creationDate", currentUser.getCreation_date());
-        model.addAttribute("profilePicPath", profilePicPath);
+        model.addAttribute("profilePicPath", this.getProfilePicturePath(this.userService));
         model.addAttribute("userRank", currentUser.getRank().name());
         return "repositories";
     }
 
     @GetMapping("/create-repository")
     public String getCreateRepositoryView(final Model model) {
-        final User currentUser = userService.findByUsername(getCurrentUsername()).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        final String profilePicPath = (currentUser.getProfile_picture() != null || !currentUser.getProfile_picture().equalsIgnoreCase("")) ? currentUser.getProfile_picture() : "/images/default-pic.png";
+        final User currentUser = this.getCurrentUser(this.userService);
         model.addAttribute("creationDate", currentUser.getCreation_date());
-        model.addAttribute("profilePicPath", profilePicPath);
+        model.addAttribute("profilePicPath", this.getProfilePicturePath(this.userService));
         model.addAttribute("userRank", currentUser.getRank().name());
         model.addAttribute("repository", new Repository());
         return "create-repository";
@@ -58,7 +56,7 @@ public class RepositoryController implements ILoggedController {
 
     @PostMapping("/create-repository")
     public String createRepository(final @ModelAttribute("repository") Repository repository, final Principal principal) {
-        final User user = this.userService.findByUsername(this.getCurrentUsername()).orElseThrow();
+        final User user = this.getCurrentUser(this.userService);
         repository.setOwner(user);
         repository.setCreationDate(LocalDateTime.now());
         this.repositoryService.createRepository(repository);
