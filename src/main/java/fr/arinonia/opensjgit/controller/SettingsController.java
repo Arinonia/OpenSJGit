@@ -33,6 +33,7 @@ public class SettingsController implements ILoggedController {
         model.addAttribute("username", currentUser.getUsername());
         model.addAttribute("email", currentUser.getEmail());
         model.addAttribute("mail_confirmed", currentUser.isConfirmed_mail());
+        model.addAttribute("userRank", currentUser.getRank().name());
         return "settings";
     }
 
