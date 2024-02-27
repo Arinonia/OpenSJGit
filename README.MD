@@ -28,6 +28,14 @@ cd OpenSJGIT/
 
 If you would like to contribute to this project, please feel free to submit pull requests or open issues.
 
+## Screenshots
+
+![Login Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/login.png "Login Page")
+![Register Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/register.png "Register Page")
+![Home Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/home.png "Home Page")
+![Settings Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/settings.png "Settings Page")
+![Dashboard](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/dashboard.png "Dashboard")
+
 
 ## Licence
 
