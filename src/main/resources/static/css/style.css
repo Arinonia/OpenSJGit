@@ -111,12 +111,12 @@ footer ul {
 }
 
 .list-group-item:hover, .list-group-item:focus {
-    background-color: #23272b; /* Slightly lighter background on hover/focus */
+    background-color: #23272b;
     color: #ffffff;
 }
 
 .dropdown-menu {
-    background-color: #343a40; /* Dark background for dropdown menus */
+    background-color: #343a40;
     color: #ffffff;
 }
 
@@ -125,6 +125,6 @@ footer ul {
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
-    background-color: #242424; /* Slightly lighter background on hover/focus */
+    background-color: #242424;
     color: #ffffff;
 }

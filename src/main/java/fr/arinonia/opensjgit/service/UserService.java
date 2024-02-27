@@ -160,4 +160,12 @@ public class UserService {
     public List<User> findAllUsers() {
         return this.userRepository.findAll();
     }
+
+    public Optional<User> findById(Long id) {
+        return this.userRepository.findById(id);
+    }
+
+    public void save(User user) {
+        this.userRepository.save(user);
+    }
 }
