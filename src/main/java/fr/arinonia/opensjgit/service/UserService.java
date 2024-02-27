@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -155,5 +157,7 @@ public class UserService {
         return this.userRepository.findByUsername(username);
     }
 
-
+    public List<User> findAllUsers() {
+        return this.userRepository.findAll();
+    }
 }

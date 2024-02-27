@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5 text-light">
+    <h2>User Dashboard</h2>
+    <table class="table table-dark table-striped"> <!-- Added table-dark and table-striped for dark theme styling -->
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Creation Date</th>
+            <th>Using 2FA</th>
+            <th>Profile Picture</th>
+            <th>Confirmed Email</th>
+            <th>Rank</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.creation_date}"></td>
+            <td th:text="${user.using_2fa}"></td>
+            <td>
+                <img th:if="${user.profile_picture}" th:src="@{/uploads/{profilePic}(profilePic=${user.profile_picture})}" alt="Profile Picture" height="50" onerror="this.src='/images/default-pic.png'"/>
+            </td>
+            <td th:text="${user.confirmed_mail} ? 'Yes' : 'No'"></td>
+            <td th:text="${user.rank}"></td>
+            <td>
+                <a th:href="@{/edit-user/{id}(id=${user.id})}" class="btn btn-secondary btn-sm">Edit</a> <!-- Changed button class to btn-secondary for better visibility in dark theme -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

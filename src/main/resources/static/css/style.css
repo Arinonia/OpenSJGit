@@ -114,3 +114,17 @@ footer ul {
     background-color: #23272b; /* Slightly lighter background on hover/focus */
     color: #ffffff;
 }
+
+.dropdown-menu {
+    background-color: #343a40; /* Dark background for dropdown menus */
+    color: #ffffff;
+}
+
+.dropdown-item {
+    color: #ffffff;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #242424; /* Slightly lighter background on hover/focus */
+    color: #ffffff;
+}
