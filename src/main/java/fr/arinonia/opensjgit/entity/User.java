@@ -17,12 +17,15 @@ public class User {
     private boolean using_2fa = false;//TODO 2fa will be not implemented yet
     private String profile_picture = "";
     private boolean confirmed_mail = false;
+    @Enumerated(EnumType.STRING)
+    private Rank rank = Rank.USER;
 
     //Empty constructor for all the reflection process
     public User() {}
 
     public User(final Long id, final String username, final String email, final String password,
-                final String creation_date, final boolean using_2fa, final String profile_picture, final boolean confirmed_mail) {
+                final String creation_date, final boolean using_2fa, final String profile_picture,
+                final boolean confirmed_mail) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -95,5 +98,13 @@ public class User {
 
     public void setConfirmed_mail(final boolean confirmed_mail) {
         this.confirmed_mail = confirmed_mail;
+    }
+
+    public Rank getRank() {
+        return this.rank;
+    }
+
+    public void setRank(final Rank rank) {
+        this.rank = rank;
     }
 }

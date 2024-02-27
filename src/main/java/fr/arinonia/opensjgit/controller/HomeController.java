@@ -25,6 +25,7 @@ public class HomeController {
         final String profilePicPath = (currentUser.getProfile_picture() != null || !currentUser.getProfile_picture().equalsIgnoreCase("")) ? currentUser.getProfile_picture() : "/images/default-pic.png";
         model.addAttribute("creationDate", currentUser.getCreation_date());
         model.addAttribute("profilePicPath", profilePicPath);
+        model.addAttribute("userRank", currentUser.getRank().name());
         return "home";
     }
 

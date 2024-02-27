@@ -1,6 +1,11 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
-    background-color: #121212; /* Dark shade of gray */
-    color: #e0e0e0; /* Light color for text for better contrast */
+    background-color: #121212;
+    color: #e0e0e0;
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
@@ -58,4 +63,54 @@ body {
 .profile-pic {
     width: 100%;
     height: auto;
+}
+
+
+/*footer part*/
+footer {
+    color: #e0e0e0;
+    height: 280px;
+    line-height: 60px;
+    position: relative;
+    clear: both;
+}
+
+footer a.text-light {
+    text-decoration: none;
+    color: #e0e0e0;
+    font-size: 24px;
+}
+
+footer a.text-light:hover {
+    text-decoration: underline;
+}
+
+footer h5 {
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+footer p, footer ul {
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+
+footer ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+
+/*home*/
+.list-group-item {
+    background-color: #343a40;
+    color: #ffffff;
+    border-color: #454d55;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.list-group-item:hover, .list-group-item:focus {
+    background-color: #23272b; /* Slightly lighter background on hover/focus */
+    color: #ffffff;
 }
