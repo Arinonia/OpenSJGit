@@ -1,12 +1,67 @@
 package fr.arinonia.opensjgit.controller;
 
+import fr.arinonia.opensjgit.entity.Repository;
+import fr.arinonia.opensjgit.entity.User;
+import fr.arinonia.opensjgit.service.RepositoryService;
+import fr.arinonia.opensjgit.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.time.LocalDateTime;
 
 @Controller
-public class RepositoryController {
+@RequestMapping("/repositories") // Optional: Organize repository related paths under /repositories
+public class RepositoryController implements ILoggedController {
+
+    private final UserService userService;
+    private final RepositoryService repositoryService;
+
+
+    @Autowired
+    public RepositoryController(final UserService userService, final RepositoryService repositoryService) {
+        this.userService = userService;
+        this.repositoryService = repositoryService;
+    }
+
+    @GetMapping("/repositories")
+    public String listUserRepositories(final Model model, final @RequestParam(defaultValue = "0") int page) {
+        final Pageable pageable = PageRequest.of(page, 20);
+        final User currentUser = userService.findByUsername(getCurrentUsername()).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        final Page<Repository> repositoryPage = repositoryService.findAllByUser(currentUser, pageable);
+        final String profilePicPath = (currentUser.getProfile_picture() != null || !currentUser.getProfile_picture().equalsIgnoreCase("")) ? currentUser.getProfile_picture() : "/images/default-pic.png";
+
+        model.addAttribute("repositories", repositoryPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", repositoryPage.getTotalPages());
+        model.addAttribute("creationDate", currentUser.getCreation_date());
+        model.addAttribute("profilePicPath", profilePicPath);
+        model.addAttribute("userRank", currentUser.getRank().name());
+        return "repositories";
+    }
+
     @GetMapping("/create-repository")
-    public String getCreateRepositoryView() {
-        return "todo";
+    public String getCreateRepositoryView(final Model model) {
+        final User currentUser = userService.findByUsername(getCurrentUsername()).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        final String profilePicPath = (currentUser.getProfile_picture() != null || !currentUser.getProfile_picture().equalsIgnoreCase("")) ? currentUser.getProfile_picture() : "/images/default-pic.png";
+        model.addAttribute("creationDate", currentUser.getCreation_date());
+        model.addAttribute("profilePicPath", profilePicPath);
+        model.addAttribute("userRank", currentUser.getRank().name());
+        model.addAttribute("repository", new Repository());
+        return "create-repository";
+    }
+
+    @PostMapping("/create-repository")
+    public String createRepository(final @ModelAttribute("repository") Repository repository, final Principal principal) {
+        final User user = this.userService.findByUsername(this.getCurrentUsername()).orElseThrow();
+        repository.setOwner(user);
+        repository.setCreationDate(LocalDateTime.now());
+        this.repositoryService.createRepository(repository);
+        return "redirect:/repositories/repositories";
     }
 }

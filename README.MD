@@ -34,7 +34,8 @@ If you would like to contribute to this project, please feel free to submit pull
 ![Register Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/register.png "Register Page")
 ![Home Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/home.png "Home Page")
 ![Settings Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/settings.png "Settings Page")
-![Dashboard](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/dashboard.png "Dashboard")
+![Dashboard Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/dashboard.png "Dashboard")
+![Repositories Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/repositories.png "Repositories")
 
 
 ## Licence

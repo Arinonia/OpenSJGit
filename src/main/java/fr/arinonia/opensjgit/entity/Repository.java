@@ -3,6 +3,8 @@ package fr.arinonia.opensjgit.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "repository")
@@ -21,6 +23,14 @@ public class Repository {
     private User owner;
     @Column(name = "is_private")
     private boolean isPrivate;
+
+    @ManyToMany
+    @JoinTable(
+            name = "repository_contributors",
+            joinColumns = @JoinColumn(name = "repository_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> contributors = new HashSet<>();
 
     public Repository() {}
 
@@ -71,5 +81,15 @@ public class Repository {
     public void setPrivate(boolean isPrivate) {
         this.isPrivate = isPrivate;
     }
+
+    public Set<User> getContributors() {
+        return contributors;
+    }
+
+    public void setContributors(Set<User> contributors) {
+        this.contributors = contributors;
+    }
+
+
 }
 
