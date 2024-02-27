@@ -4,7 +4,6 @@ import fr.arinonia.opensjgit.entity.User;
 import fr.arinonia.opensjgit.service.UserService;
 import fr.arinonia.opensjgit.service.responses.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-public class SettingsController {
+public class SettingsController implements ILoggedController {
 
     private final UserService userService;
 
@@ -73,10 +72,5 @@ public class SettingsController {
             redirectAttributes.addFlashAttribute("message", "Your settings have been updated.");
         }
         return "redirect:/settings";
-    }
-
-
-    private String getCurrentUsername() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

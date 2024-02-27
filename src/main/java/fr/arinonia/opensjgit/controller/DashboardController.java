@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class DashboardController {
+public class DashboardController implements ILoggedController {
 
     private final UserService userService;
 
@@ -56,9 +56,5 @@ public class DashboardController {
         userService.save(updatedUser);
         model.addAttribute("users", userService.findAllUsers());
         return "redirect:/dashboard";
-    }
-
-    private String getCurrentUsername() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

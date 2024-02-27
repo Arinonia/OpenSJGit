@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
+public class HomeController implements ILoggedController {
 
     private final UserService userService;
 
@@ -29,7 +29,4 @@ public class HomeController {
         return "home";
     }
 
-    private String getCurrentUsername() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
 }
