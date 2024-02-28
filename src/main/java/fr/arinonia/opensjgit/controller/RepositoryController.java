@@ -73,9 +73,15 @@ public class RepositoryController implements ILoggedController {
 
     @PostMapping("/edit-repository/{id}")
     public String updateRepository(final @PathVariable("id") Long id, final @ModelAttribute("repository") Repository repository) {
-        repository.setId(id);
-        this.repositoryService.save(repository);
-        return "redirect:/repositories";
+        final Repository existingRepository = repositoryService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid repository Id:" + id));
+        final User owner = existingRepository.getOwner();
+        existingRepository.setOwner(owner);
+        existingRepository.setName(repository.getName());
+        existingRepository.setDescription(repository.getDescription());
+        existingRepository.setPrivate(repository.isPrivate());
+        repositoryService.save(existingRepository);
+        return "redirect:/repositories/repositories";
     }
 
     @PostMapping("/delete-repository/{id}")
