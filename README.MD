@@ -1,8 +1,11 @@
 # OpenSJGIT
 
-![GitHub last commit](https://img.shields.io/github/last-commit/Arinonia/OpenSJGIT)
-![GitHub issues](https://img.shields.io/github/issues/Arinonia/OpenSJGIT)
-![License](https://img.shields.io/badge/license-GPL3-green)
+![GitHub last commit](https://img.shields.io/github/last-commit/Arinonia/OpenSJGIT?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/Arinonia/OpenSJGIT?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/Arinonia/OpenSJGIT?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/Arinonia/OpenSJGIT?style=for-the-badge)
+![GitHub All Releases](https://img.shields.io/github/downloads/Arinonia/OpenSJGIT/total?style=for-the-badge)
+![License](https://img.shields.io/badge/license-GPL3-green?style=for-the-badge)
 
 ## Description
 
@@ -35,6 +38,7 @@ If you would like to contribute to this project, please feel free to submit pull
 ![Home Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/home.png "Home Page")
 ![Settings Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/settings.png "Settings Page")
 ![Dashboard Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/dashboard.png "Dashboard")
+![Edit User Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/edit_user.png "Edit User")
 ![Repositories Page](https://github.com/Arinonia/OpenSJGIT/raw/main/screenshots/repositories.png "Repositories")
 
 
