@@ -29,7 +29,7 @@
                     <img th:if="${profilePicPath}" th:src="@{/uploads/{profilePicPath}(profilePicPath=${profilePicPath})}" alt="Profile Picture" onerror="this.src='/images/default-pic.png'" class="profile-pic"/>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/profile">Profile</a>
+                    <a class="dropdown-item" href="/repositories/repositories">Profile</a>
                     <a class="dropdown-item" href="/settings">Settings</a>
                     <a class="dropdown-item" href="/perform_logout">Logout</a>
                 </div>
