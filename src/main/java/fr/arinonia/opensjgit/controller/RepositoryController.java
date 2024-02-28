@@ -4,6 +4,7 @@ import fr.arinonia.opensjgit.entity.Repository;
 import fr.arinonia.opensjgit.entity.User;
 import fr.arinonia.opensjgit.service.RepositoryService;
 import fr.arinonia.opensjgit.service.UserService;
+import fr.arinonia.opensjgit.service.responses.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -64,11 +66,15 @@ public class RepositoryController implements ILoggedController {
 
     //TODO
     @PostMapping("/create-repository")
-    public String createRepository(final @ModelAttribute("repository") Repository repository, final Principal principal) {
+    public String createRepository(final @ModelAttribute("repository") Repository repository, final RedirectAttributes redirectAttributes) {
         final User user = this.getCurrentUser(this.userService);
         repository.setOwner(user);
         repository.setCreationDate(LocalDateTime.now());
-        this.repositoryService.createRepository(repository);
+        final Response response = this.repositoryService.createRepository(repository);
+        if (!response.isSuccess()) {
+            redirectAttributes.addFlashAttribute("errorMessage", response.getErrorMessage());
+            return "redirect:/repositories/create-repository";
+        }
         return "redirect:/repositories/repositories";
     }
 

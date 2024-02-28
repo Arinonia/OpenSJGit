@@ -38,4 +38,4 @@ out/
 
 
 ### Ignore application specific paths ###
-/var/app/uploads/
+/var/app/

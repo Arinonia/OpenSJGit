@@ -62,6 +62,7 @@ public class RepositoryService {
         }
         try {
             final Git git = Git.init().setDirectory(repositoryFolder).call();
+            git.close();
             System.out.println(git.toString());
         } catch (final GitAPIException e) {
             response.setSuccess(false);
