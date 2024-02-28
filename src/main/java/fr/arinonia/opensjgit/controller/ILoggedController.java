@@ -11,6 +11,7 @@ public interface ILoggedController {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
+    @Deprecated
     default User getCurrentUser(final UserRepository userRepository) {
         return userRepository.findByUsername(getCurrentUsername()).orElseThrow(() -> new IllegalArgumentException("User not found with username '" + getCurrentUsername() + "'"));
     }

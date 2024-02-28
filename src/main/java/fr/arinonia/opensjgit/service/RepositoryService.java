@@ -3,11 +3,16 @@ package fr.arinonia.opensjgit.service;
 import fr.arinonia.opensjgit.entity.Repository;
 import fr.arinonia.opensjgit.entity.User;
 import fr.arinonia.opensjgit.repository.RepositoryRepository;
+import fr.arinonia.opensjgit.service.responses.Response;
+import fr.arinonia.opensjgit.utils.Constants;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -33,14 +38,39 @@ public class RepositoryService {
         return this.repositoryRepository.save(repository);
     }
 
-    public Repository createRepository(final Repository rep) {
+    public Response createRepository(final Repository rep) {
+        final Response response = new Response();
         final Repository repository = new Repository();
         repository.setName(rep.getName());
         repository.setDescription(rep.getDescription());
         repository.setPrivate(rep.isPrivate());
         repository.setOwner(rep.getOwner());
         repository.setCreationDate(LocalDateTime.now());
-        return this.repositoryRepository.save(repository);
+
+        final File repositoryFolder = new File(Constants.REPOSITORY_PATH + repository.getOwner().getUsername(), repository.getName());
+
+        if (repositoryFolder.exists()) {
+            response.setSuccess(false);
+            response.setErrorMessage("You already have a repository with this name");
+            return response;
+        } else {
+            if (!repositoryFolder.mkdirs()) {
+                response.setSuccess(false);
+                response.setErrorMessage("You already have a repository with this name");
+                return response;
+            }
+        }
+        try {
+            final Git git = Git.init().setDirectory(repositoryFolder).call();
+            System.out.println(git.toString());
+        } catch (final GitAPIException e) {
+            response.setSuccess(false);
+            response.setErrorMessage(e.getMessage());
+            return response;
+        }
+        this.repositoryRepository.save(repository);
+        response.setSuccess(true);
+        return response;
     }
 
     public List<Repository> findAllRepositories() {
