@@ -1,4 +1,4 @@
-# OpenSJGIT
+# OpenSJGIT (DEAD PROJECT AND UGLY CODE I WAS LEARNING SPRING)
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/Arinonia/OpenSJGIT?style=for-the-badge)
 ![GitHub stars](https://img.shields.io/github/stars/Arinonia/OpenSJGIT?style=for-the-badge)
